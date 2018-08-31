@@ -67,6 +67,35 @@ bool ShapesDemo::init()
         ParticipantAttributes pparam;
         pparam.rtps.setName("fastrtpsParticipant");
         pparam.rtps.builtin.domainId = m_options.m_domainId;
+        using Property = eprosima::fastrtps::rtps::Property;
+        pparam.rtps.properties.properties().emplace_back(
+            Property("dds.sec.auth.plugin", "builtin.PKI-DH"));
+
+        pparam.rtps.properties.properties().emplace_back(
+            Property("dds.sec.auth.plugin", "builtin.PKI-DH"));
+        pparam.rtps.properties.properties().emplace_back(
+            Property("dds.sec.auth.builtin.PKI-DH.identity_ca",
+                     "file:///home/ubuntu/demo_keys/identity_ca.cert.pem"));
+        pparam.rtps.properties.properties().emplace_back(
+            Property("dds.sec.auth.builtin.PKI-DH.identity_certificate",
+                     "file:///home/ubuntu/demo_keys/cert.pem"));
+        pparam.rtps.properties.properties().emplace_back(
+            Property("dds.sec.auth.builtin.PKI-DH.private_key",
+                     "file:///home/ubuntu/demo_keys/key.pem"));
+        pparam.rtps.properties.properties().emplace_back(
+            Property("dds.sec.crypto.plugin", "builtin.AES-GCM-GMAC"));
+
+        pparam.rtps.properties.properties().emplace_back(
+            Property("dds.sec.access.plugin", "builtin.Access-Permissions"));
+        pparam.rtps.properties.properties().emplace_back(
+            Property("dds.sec.access.builtin.Access-Permissions.permissions_ca",
+                     "file:///home/ubuntu/demo_keys/permissions_ca.cert.pem"));
+        pparam.rtps.properties.properties().emplace_back(
+            Property("dds.sec.access.builtin.Access-Permissions.governance",
+                     "file:///home/ubuntu/demo_keys/governance.p7s"));
+        pparam.rtps.properties.properties().emplace_back(
+            Property("dds.sec.access.builtin.Access-Permissions.permissions",
+                     "file:///home/ubuntu/demo_keys/permissions.p7s"));
         /*pparam.rtps.builtin.leaseDuration.seconds = 100;
         pparam.rtps.builtin.leaseDuration_announcementperiod.seconds = 50;
         pparam.rtps.defaultSendPort = 10042;
